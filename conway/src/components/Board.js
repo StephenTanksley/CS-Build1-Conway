@@ -1,23 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Board.css";
 
+const size = 20;
+const cells_array = new Array(size).fill(new Array(size).fill(undefined));
 const Board = () => {
-  const cellSize = 20;
-  const WIDTH = 800;
-  const HEIGHT = 600;
+  const [state, setState] = useState(cells_array);
 
-  return (
-    <div>
-      <div
-        className="board"
-        style={{
-          width: WIDTH,
-          height: HEIGHT,
-          backgroundSize: `${cellSize}px ${cellSize}px`,
-        }}
-      ></div>
-    </div>
-  );
+  console.log(cells_array);
+
+  return <div></div>;
 };
 
 export default Board;
