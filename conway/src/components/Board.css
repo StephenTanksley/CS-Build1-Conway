@@ -1,0 +1,7 @@
+.board {
+  position: relative;
+  margin: 0 auto;
+  background-color: #0e0e0e;
+  background-image: linear-gradient(#333 1px transparent 1px),
+    linear-gradient(90deg, #333 1px, transparent 1px);
+}
