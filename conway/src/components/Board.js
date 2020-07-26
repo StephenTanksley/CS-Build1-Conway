@@ -14,10 +14,13 @@ const Board = () => {
   const state = useStore();
   const { size, running, generations } = state.state;
 
+  console.log(state.state);
+
   const [localGrid, setLocalGrid] = useState(() => {
-    return newBoard();
+    return newBoard(size);
   });
 
+  console.log(localGrid);
   const { dispatch } = state;
   const { RUNNING, STOP_RUNNING, NEXT_GEN, RANDOM_BOARD, CLEAR } = ACTIONS;
 
