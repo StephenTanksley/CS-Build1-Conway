@@ -12,7 +12,7 @@ import "./Board.css";
 // This is our gameboard component. The gameboard creates the pattern of cells for our simulation.
 const Board = () => {
   const state = useStore();
-  const { size, running, generations } = state.state;
+  const { size, running, generations, speed } = state.state;
 
   console.log(state.state);
 
@@ -37,6 +37,7 @@ const Board = () => {
   // console.log(runningRef);
 
   const runSimulation = useCallback(() => {
+    dispatch({ type: NEXT_GEN });
     if (!runningRef.current) {
       return;
     }
@@ -64,7 +65,7 @@ const Board = () => {
       });
     });
 
-    setTimeout(runSimulation, 100);
+    setTimeout(runSimulation, speed);
   }, [size]);
 
   return (
