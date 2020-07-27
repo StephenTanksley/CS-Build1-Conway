@@ -1,5 +1,10 @@
 import React, { createContext, useContext, useReducer } from "react";
-import { newBoard, randomBoard } from "../helpers/helpers";
+import {
+  newBoard,
+  randomBoard,
+  randomCellBoard,
+  newCellBoard,
+} from "../helpers/helpers";
 import { ACTIONS } from "../helpers/helpers";
 
 const {
@@ -14,10 +19,10 @@ const {
 const StoreContext = createContext();
 
 const initialState = {
-  size: 50,
+  size: 7,
   speed: 1000,
   generations: 0,
-  grid: newBoard(50),
+  grid: newCellBoard(7),
   running: false,
 };
 
