@@ -19,10 +19,10 @@ const {
 const StoreContext = createContext();
 
 const initialState = {
-  size: 7,
+  size: 15,
   speed: 1000,
   generations: 0,
-  grid: newCellBoard(7),
+  grid: [],
   running: false,
 };
 
@@ -60,7 +60,7 @@ const reducer = (state, action) => {
         ...state,
         generations: 0,
         running: false,
-        grid: randomBoard(state.size),
+        grid: randomCellBoard(state.size),
       };
 
     case UPDATE_BOARD:
