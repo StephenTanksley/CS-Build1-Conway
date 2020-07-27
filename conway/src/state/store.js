@@ -1,10 +1,5 @@
 import React, { createContext, useContext, useReducer } from "react";
-import {
-  newBoard,
-  randomBoard,
-  randomCellBoard,
-  newCellBoard,
-} from "../helpers/helpers";
+import { newCellBoard, randomCellBoard } from "../helpers/helpers";
 import { ACTIONS } from "../helpers/helpers";
 
 const {
@@ -22,11 +17,11 @@ const initialState = {
   size: 15,
   speed: 1000,
   generations: 0,
-  grid: [],
+  grid: newCellBoard(15),
   running: false,
 };
 
-const reducer = (state, action) => {
+const reducer = (state, action, payload) => {
   switch (action.type) {
     case RUNNING:
       return {
@@ -45,7 +40,7 @@ const reducer = (state, action) => {
     case CLEAR:
       return {
         ...state,
-        grid: newBoard(state.size),
+        grid: newCellBoard(state.size),
         generations: 0,
       };
 
@@ -66,6 +61,7 @@ const reducer = (state, action) => {
     case UPDATE_BOARD:
       return {
         ...state,
+        grid: payload,
         generations: state.generations + 1,
       };
 

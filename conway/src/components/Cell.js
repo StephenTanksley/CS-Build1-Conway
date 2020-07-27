@@ -4,8 +4,8 @@ export const Cell = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 20px;
-  height: 20px;
+  width: ${(props) => `${props.dimensions}px`};
+  height: ${(props) => `${props.dimensions}px`};
   background: ${(props) => (props.alive ? "black" : "white")};
   border: 1px solid black;
   border-radius: 0.1rem;
