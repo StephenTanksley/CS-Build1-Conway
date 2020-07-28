@@ -6,7 +6,7 @@ export const Cell = styled.div`
   align-items: center;
   width: ${(props) => `${props.dimensions}px`};
   height: ${(props) => `${props.dimensions}px`};
-  background: ${(props) => (props.alive ? "black" : "white")};
+  background: ${(props) => (props.alive ? "green  " : "white")};
   border: 1px solid black;
   border-radius: 0.1rem;
 `;
