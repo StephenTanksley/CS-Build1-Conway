@@ -14,10 +14,11 @@ const {
 const StoreContext = createContext();
 
 const initialState = {
-  size: 15,
+  size: 5,
   speed: 1000,
   generations: 0,
-  grid: newCellBoard(15),
+  // grid: newCellBoard(15),
+  grid: randomCellBoard(5),
   running: false,
 };
 
