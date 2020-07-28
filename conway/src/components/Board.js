@@ -21,20 +21,16 @@ const Board = () => {
   // console.log("Context grid: ", grid);
   // console.log("Local grid: ", localGrid);
 
-  const specific_key = (i, j) => {
+  const key_filter = (i, j) => {
+    let item_array = [];
     localGrid.filter(function (cell) {
-      let item_array = [];
       if (cell["row"] === i && cell["col"] === j) {
         item_array.push(cell);
       }
-      console.log(item_array);
-      return item_array;
     });
+    return item_array;
   };
-  console.log("Key of 1,2: ", specific_key(1, 2));
-
-  // const positionInGrid = [localGrid[15]["row"], localGrid[15]["col"]];
-  // console.log(positionInGrid);
+  console.log(key_filter(1, 2));
 
   const width = Math.round((window.innerWidth * 0.35) / size);
 
