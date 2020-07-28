@@ -10,13 +10,15 @@ export const Container = styled.div`
 
 export const GridContainer = styled.div`
   display: flex;
-  max-width: 0.5vw;
+  width: "75vw,
   flex-direction: column;
   margin: 0 auto;
   justify-content: center;
   align-items: center;
   display: grid;
-  grid-template-columns: ${(props) => `repeat(${props.size}, 20px)`};
+  border: 1px solid green;
+  grid-template-columns: ${(props) =>
+    `repeat(${props.size}, (${props.width} + px))`};
 `;
 
 export const ButtonContainer = styled(Container)`

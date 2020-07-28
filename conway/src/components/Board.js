@@ -18,13 +18,20 @@ const Board = () => {
     return grid;
   });
 
-  console.log("Context grid: ", grid);
-  console.log("Local grid: ", localGrid);
+  // console.log("Context grid: ", grid);
+  // console.log("Local grid: ", localGrid);
 
-  // const specific_key = localGrid.filter(function (cell, i) {
-  //   return cell["row"] === 4 && cell["col"] === 3;
-  // });
-  // console.log("specific key alive: ", specific_key[0].alive);
+  const specific_key = (i, j) => {
+    localGrid.filter(function (cell) {
+      let item_array = [];
+      if (cell["row"] === i && cell["col"] === j) {
+        item_array.push(cell);
+      }
+      console.log(item_array);
+      return item_array;
+    });
+  };
+  console.log("Key of 1,2: ", specific_key(1, 2));
 
   // const positionInGrid = [localGrid[15]["row"], localGrid[15]["col"]];
   // console.log(positionInGrid);
@@ -40,18 +47,22 @@ const Board = () => {
 
   // findItems();
 
-  const updateGrid = useCallback((grid) => {
-    if (!runningRef.current) {
-      return;
-    }
-    setLocalGrid((localGrid) => {
-      return produce(localGrid, (gridCopy) => {
-        for (let i = 0; i < localGrid.length; i++) {
-          console.log(localGrid[i]);
-        }
-      });
-    });
-  });
+  // const updateGrid = useCallback((grid) => {
+  //   if (!runningRef.current) {
+  //     return;
+  //   }
+
+  //   for (let i = 0; i < grid.length; i++) {
+  //     console.log(grid[i]);
+  //   }
+  //   // setLocalGrid((localGrid) => {
+  //   //   return produce(localGrid, (gridCopy) => {
+  //   //     for (let i = 0; i < localGrid.length; i++) {
+  //   //       console.log(localGrid[i]);
+  //   //     }
+  //   //   });
+  //   // });
+  // });
 
   // useEffect(() => {
   //   if (size) {
@@ -68,10 +79,6 @@ const Board = () => {
   const { dispatch } = state;
   const { RUNNING, STOP_RUNNING, NEXT_GEN, RANDOM_BOARD, CLEAR } = ACTIONS;
 
-  // const dispatchAction = (action) => {
-  //   dispatch({ type: action });
-  // };
-
   const generationsRef = useRef(generations);
   generationsRef.current = generations;
 
@@ -83,6 +90,7 @@ const Board = () => {
     e.stopPropagation();
 
     console.log(e.target);
+    // updateGrid(localGrid);
   };
 
   return (
