@@ -42,6 +42,7 @@ const Board = () => {
   key_filter(localGrid, 2, 2);
   key_filter(localGrid, 2, 3);
 
+  // I want to iterate through the whole grid to find the living neighbors of each cell.
   const find_living_neighbors = (grid) => {
     for (let i = 0; i < grid.length; i++) {
       let neighborsCount = 0;
