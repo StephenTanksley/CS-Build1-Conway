@@ -2,6 +2,7 @@ import React, { createContext, useContext, useReducer } from "react";
 import { newCellBoard, randomCellBoard } from "../helpers/helpers";
 import { ACTIONS } from "../helpers/helpers";
 
+// destructuring ACTIONS
 const {
   RUNNING,
   STOP_RUNNING,
@@ -11,6 +12,7 @@ const {
   UPDATE_BOARD,
 } = ACTIONS;
 
+// setting up the context for our global store.
 const StoreContext = createContext();
 
 const initialState = {
