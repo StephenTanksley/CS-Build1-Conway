@@ -154,7 +154,16 @@ const Board = () => {
                   {
                     /* this is how I will find the indexes of cells I need. */
                   }
-                  console.log(localGrid.indexOf(cell));
+                  const cell_index = localGrid.indexOf(cell);
+                  const newCell = produce(localGrid, (draft) => {
+                    draft[cell_index]["alive"] = localGrid[cell_index]["alive"]
+                      ? false
+                      : true;
+                  });
+
+                  setLocalGrid(newCell);
+                  console.log(localGrid[0]);
+                  // console.log(localGrid.indexOf(cell));
                 }}
               />
             );
