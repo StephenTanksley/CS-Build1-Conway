@@ -117,7 +117,7 @@ const Board = () => {
   const runningRef = useRef(running);
   runningRef.current = running;
 
-  const handleClick = (e) => {
+  const handleCellClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
 
@@ -150,7 +150,12 @@ const Board = () => {
                 active={cell.active}
                 row={cell.row}
                 col={cell.col}
-                onClick={handleClick}
+                onClick={() => {
+                  {
+                    /* this is how I will find the indexes of cells I need. */
+                  }
+                  console.log(localGrid.indexOf(cell));
+                }}
               />
             );
           })}
