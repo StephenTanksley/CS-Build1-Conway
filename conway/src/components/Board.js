@@ -23,8 +23,8 @@ const Board = () => {
 
   useEffect(() => {
     setLocalGrid(grid);
-    console.log(grid);
-  }, [grid]);
+    // console.log(grid);
+  }, []);
 
   const width = Math.round((window.innerWidth * 0.35) / size);
   // const toggle_life = () => {};
@@ -33,83 +33,81 @@ const Board = () => {
   //   console.log("Hopefully this works: ", get_grid_items(localGrid));
   // }, []);
 
-  key_filter(localGrid, 0, 1);
-  key_filter(localGrid, 0, 2);
-  key_filter(localGrid, 0, 3);
-  key_filter(localGrid, 1, 1);
-  key_filter(localGrid, 1, 3);
-  key_filter(localGrid, 2, 1);
-  key_filter(localGrid, 2, 2);
-  key_filter(localGrid, 2, 3);
-
   // I want to iterate through the whole grid to find the living neighbors of each cell.
-  const find_living_neighbors = (grid) => {
-    for (let i = 0; i < grid.length; i++) {
-      let neighborsCount = 0;
-      let neighbors_arr = [];
+  // const find_living_neighbors = (grid) => {
+  //   for (let i = 0; i < grid.length; i++) {
+  //     let neighborsCount = 0;
+  //     let neighbors_arr = [];
 
-      // this is the item we're looking to get all of the attributes from.
-      const item = grid[i];
+  //     // this is the item we're looking to get all of the attributes from.
+  //     const item = grid[i];
 
-      const item_row = grid[i]["row"];
-      const item_col = grid[i]["col"];
+  //     const item_row = grid[i]["row"];
+  //     const item_col = grid[i]["col"];
 
-      console.log(item_row);
-      console.log(item_col);
+  //     console.log(item_row);
+  //     console.log(item_col);
 
-      // console.log(`row: ${item["row"]}, col: ${item["col"]}`);
+  // console.log(`row: ${item["row"]}, col: ${item["col"]}`);
 
-      // if (item.alive) {
+  // if (item.alive) {
 
-      // }
+  // }
 
-      // We want to look at this item's row and column information and then use that to find its neighbors.
-      // We'll run a forEach on the grid to filter out all items which aren't within 1 of the x and y axis.
-      // From that list, we'll check each item to see if it is currently alive.
-      // If so, we'll add that to the neighborsCount.
+  // We want to look at this item's row and column information and then use that to find its neighbors.
+  // We'll run a forEach on the grid to filter out all items which aren't within 1 of the x and y axis.
+  // From that list, we'll check each item to see if it is currently alive.
+  // If so, we'll add that to the neighborsCount.
 
-      // localGrid.filter(function (cell) {
-      //   neighbors.forEach(([x, y]) => {
-      //     // We have to get the next values by taking our item's values and doing transformations on them.
-      //     let new_x = item["row"] + x;
-      //     let new_y = item["col"] + y;
+  // localGrid.filter(function (cell) {
+  //   neighbors.forEach(([x, y]) => {
+  //     // We have to get the next values by taking our item's values and doing transformations on them.
+  //     let new_x = item["row"] + x;
+  //     let new_y = item["col"] + y;
 
-      //     neighbors_arr.push(key_filter(cell, new_x, new_y));
+  //     neighbors_arr.push(key_filter(cell, new_x, new_y));
 
-      //     for (let i = 0; i < neighbors_arr.length; i++) {
-      //       if (i.alive) {
-      //         neighborsCount += 1;
-      //       }
-      //     }
-      //   });
-      // });
+  //     for (let i = 0; i < neighbors_arr.length; i++) {
+  //       if (i.alive) {
+  //         neighborsCount += 1;
+  //       }
+  //     }
+  //   });
+  // });
 
-      // find_living_neighbors(localGrid);
+  // find_living_neighbors(localGrid);
 
-      // We use this item's row and column information to search its neighbors.
-      // We can probably use the key_filter function for this.
-      // We want to add the results of a neighbor's "alive" attribute to neighborsCount.
-      // console.log("alive ? : ", `(${item.row}, ${item.col}): ${item.alive}`);
-      // neighbors.forEach(([x, y]) => {
-      //   let current_x = item["row"] + x;
-      //   let current_y = item["col"] + y;
+  // We use this item's row and column information to search its neighbors.
+  // We can probably use the key_filter function for this.
+  // We want to add the results of a neighbor's "alive" attribute to neighborsCount.
+  // console.log("alive ? : ", `(${item.row}, ${item.col}): ${item.alive}`);
+  // neighbors.forEach(([x, y]) => {
+  //   let current_x = item["row"] + x;
+  //   let current_y = item["col"] + y;
 
-      //   if (
-      //     current_x >= 0 &&
-      //     current_x < grid.length &&
-      //     current_y >= 0 &&
-      //     current_y < grid.length
-      //   ) {
-      //     neighborsCount += item[i].alive;
-      //   }
-      // });
-    }
-  };
+  //   if (
+  //     current_x >= 0 &&
+  //     current_x < grid.length &&
+  //     current_y >= 0 &&
+  //     current_y < grid.length
+  //   ) {
+  //     neighborsCount += item[i].alive;
+  //   }
+  // });
+  // }
+  // };
 
-  find_living_neighbors(localGrid);
+  // find_living_neighbors(localGrid);
 
   const { dispatch } = state;
-  const { RUNNING, STOP_RUNNING, NEXT_GEN, RANDOM_BOARD, CLEAR } = ACTIONS;
+  const {
+    RUNNING,
+    STOP_RUNNING,
+    NEXT_GEN,
+    RANDOM_BOARD,
+    UPDATE_BOARD,
+    CLEAR,
+  } = ACTIONS;
 
   const generationsRef = useRef(generations);
   generationsRef.current = generations;
@@ -157,12 +155,12 @@ const Board = () => {
                   const cell_index = localGrid.indexOf(cell);
                   const newCell = produce(localGrid, (draft) => {
                     draft[cell_index]["alive"] = localGrid[cell_index]["alive"]
-                      ? false
-                      : true;
+                      ? 0
+                      : 1;
                   });
 
-                  setLocalGrid(newCell);
-                  console.log(localGrid[0]);
+                  dispatch({ type: UPDATE_BOARD, payload: newCell });
+                  console.log(localGrid);
                   // console.log(localGrid.indexOf(cell));
                 }}
               />
