@@ -6,9 +6,8 @@ export const Cell = styled.div`
   align-items: center;
   width: ${(props) => `${props.dimensions}px`};
   height: ${(props) => `${props.dimensions}px`};
-  background: ${(props) => (props.alive ? "green  " : "white")};
-  border: 1px solid black;
-  border-radius: 0.1rem;
+  background: ${(props) => (props.alive ? "blue" : "white")};
+  border: 1px solid #b8b8b8;
 `;
 
 // creating a cell constructor.

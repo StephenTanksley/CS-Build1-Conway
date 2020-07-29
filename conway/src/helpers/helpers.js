@@ -17,7 +17,7 @@ export const randomCellBoard = (size) => {
   let rows = [];
   for (let i = 0; i < size; i++) {
     for (let j = 0; j < size; j++) {
-      const newCell = new CellObj(i, j, Math.random() > 0.7 ? 1 : 0, false);
+      const newCell = new CellObj(i, j, Math.random() > 0.85 ? 1 : 0, false);
       rows.push(newCell);
     }
   }
