@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback, useRef } from "react";
 import { useStore } from "../state/store";
 import {
   ACTIONS,
-  key_filter,
+  index_filter,
   get_grid_items,
   randomCellBoard,
 } from "../helpers/helpers";
@@ -21,12 +21,32 @@ const Board = () => {
     return grid;
   });
 
+  const gridRef = useRef(grid);
+  gridRef.current = grid;
+
   useEffect(() => {
     setLocalGrid(grid);
-    // console.log(grid);
-  }, []);
+    console.log(grid);
+  }, [grid]);
 
   const width = Math.round((window.innerWidth * 0.35) / size);
+
+  // const runGame = useCallback(() => {
+  //   if(!runningRef.current){
+  //     return
+  //   }
+
+  //   setLocalGrid((current_grid) => {
+  //     return produce(current_grid, draft => {
+  //       for (let i = 0; i < current_grid.length, i++){
+  //         let neighborCount = 0;
+  //         neighbors.forEach(([x,y]) => {
+  //           {/* I have to get the index of an item which matches the x and y values of neighbors. I'm going to get that by  */}
+  //         })
+  //       }
+  //     })
+  //   })
+  // })
   // const toggle_life = () => {};
 
   // useEffect(() => {
@@ -149,9 +169,6 @@ const Board = () => {
                 row={cell.row}
                 col={cell.col}
                 onClick={() => {
-                  {
-                    /* this is how I will find the indexes of cells I need. */
-                  }
                   const cell_index = localGrid.indexOf(cell);
                   const newCell = produce(localGrid, (draft) => {
                     draft[cell_index]["alive"] = localGrid[cell_index]["alive"]
@@ -160,8 +177,6 @@ const Board = () => {
                   });
 
                   dispatch({ type: UPDATE_BOARD, payload: newCell });
-                  console.log(localGrid);
-                  // console.log(localGrid.indexOf(cell));
                 }}
               />
             );

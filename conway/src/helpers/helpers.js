@@ -17,7 +17,7 @@ export const randomCellBoard = (size) => {
   let rows = [];
   for (let i = 0; i < size; i++) {
     for (let j = 0; j < size; j++) {
-      const newCell = new CellObj(i, j, Math.random() > 0.5 ? 1 : 0, false);
+      const newCell = new CellObj(i, j, Math.random() > 0.7 ? 1 : 0, false);
       rows.push(newCell);
     }
   }
@@ -25,22 +25,22 @@ export const randomCellBoard = (size) => {
 };
 
 // This helper function can check a grid to see if an item exists
-export const key_filter = (grid, i, j) => {
-  let item_array = [];
+export const index_filter = (grid, i, j) => {
+  let cell_indicator = [];
   grid.filter(function (cell) {
     if (cell["row"] === i && cell["col"] === j) {
-      item_array.push(cell);
+      cell_indicator.push(cell);
+      console.log(cell_indicator);
     }
-    return item_array;
+    return cell.indexOf();
   });
-  console.log(item_array[0]);
 };
 
 // This provides us with an approach to grabbing all of the items and having access to props.
 export const get_grid_items = (grid) => {
   for (let i = 0; i < grid.length; i++) {
     for (let j = 0; j < grid.length; j++) {
-      key_filter(grid, i, j);
+      return index_filter(grid, i, j);
     }
   }
 };
