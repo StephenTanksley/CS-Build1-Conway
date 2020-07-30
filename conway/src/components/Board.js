@@ -50,11 +50,25 @@ const Board = () => {
             neighbor_col >= 0 &&
             neighbor_col <= size
           ) {
+            // This helper will look through the grid to find the item which matches the parameters given to it. We're looking for an item which has a matching row, matching column.
             let item_neighbor = grid.findIndex((item) => {
               return (
-                item["row"] === neighbor_row && item["col"] === neighbor_col
+                item["row"] === neighbor_row &&
+                item["col"] === neighbor_col &&
+                item["alive"] === 1
               );
             });
+
+            if (grid[item_neighbor] === undefined) {
+              return;
+            }
+
+            if (grid[item_neighbor]["alive"] === undefined) {
+              return;
+            }
+
+            // console.log("grid neighbor: ", grid[item_neighbor]["alive"]);
+            // console.log(grid[i]);
             neighborsCount += grid[item_neighbor]["alive"];
           }
         });
@@ -114,8 +128,7 @@ const Board = () => {
         <button
           onClick={() => {
             dispatch({ type: RUNNING });
-            console.log(running);
-            if (running === true) {
+            if (runningRef.current === true) {
               simulation();
             }
           }}
