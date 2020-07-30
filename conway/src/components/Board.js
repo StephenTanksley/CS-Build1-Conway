@@ -1,11 +1,6 @@
 import React, { useEffect, useCallback, useRef } from "react";
 import { useStore } from "../state/store";
-import {
-  ACTIONS,
-  index_filter,
-  get_grid_items,
-  randomCellBoard,
-} from "../helpers/helpers";
+import { ACTIONS, index_filter, living_filter } from "../helpers/helpers";
 import { neighbors } from "../helpers/neighbors";
 import { Cell } from "./Cell";
 import { ButtonContainer, Container } from "../styles/styled";
@@ -36,9 +31,37 @@ const Board = () => {
   const runningRef = useRef(running);
   runningRef.current = running;
 
-  useEffect(() => {
-    console.log("current grid ref: ", gridRef.current);
-  }, [grid]);
+  const simulation = useCallback(() => {
+    if (runningRef.current === false) {
+      return;
+    }
+
+    return produce(grid, (draft) => {
+      grid.forEach((cell, i) => {
+        let neighborsCount = 0;
+        // console.log(`${i}: [${cell.row}, ${cell.col}]`);
+        neighbors.forEach(([x, y]) => {
+          const neighbor_row = cell.row + x;
+          const neighbor_col = cell.col + y;
+
+          // search the array for an item matching neighbor_x and y.
+
+          if (index_filter(grid, neighbor_row, neighbor_col)) {
+            neighborsCount +=
+              grid[index_filter(grid, neighbor_row, neighbor_col)].alive;
+          }
+
+          // conditions for killing the cell.
+          if (neighborsCount < 2 || neighborsCount > 3) {
+            draft[i]["alive"] = 0;
+          } else if (grid[i]["alive"] === 0 && neighborsCount === 3) {
+            draft[i]["alive"] = 1;
+          }
+        });
+      });
+      setTimeout(simulation, 1000);
+    });
+  }, []);
 
   return (
     <>
@@ -70,8 +93,6 @@ const Board = () => {
                   });
                   if (newCell) {
                     dispatch({ type: UPDATE_BOARD, payload: newCell });
-                    console.log(grid);
-                    console.log(cell);
                   }
                 }}
               />
@@ -85,10 +106,12 @@ const Board = () => {
         <button
           onClick={() => {
             dispatch({ type: RUNNING });
-            console.log("Is the sim running? ", runningRef.current);
+            if (runningRef === true) {
+              simulation();
+            }
           }}
         >
-          {running ? "Stop" : "Start"}
+          {running === true ? "Stop" : "Start"}
         </button>
 
         {/* Clear button */}
