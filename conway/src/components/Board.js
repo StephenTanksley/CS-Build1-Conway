@@ -39,9 +39,9 @@ const Board = () => {
     // console.log("Simulation is running!");
     produce(grid, (draft) => {
       grid.forEach((cell, i) => {
-        // console.log(cell);
-        // let neighborsCount = 0;
-        console.log(`${i}: [${cell.row}, ${cell.col}]`);
+        console.log(cell);
+        let neighborsCount = 0;
+        // console.log(`${i}: [${cell.row}, ${cell.col}]`);
 
         // cell["alive"] works.
         // console.log(`${i} alive? : ${cell["alive"]}`);
@@ -50,25 +50,30 @@ const Board = () => {
           const neighbor_row = cell.row + x;
           const neighbor_col = cell.col + y;
 
-          console.log(`${i}: [${neighbor_row}, ${neighbor_col}]`);
-          index_filter(grid, neighbor_row, neighbor_col);
-          //   /* search the array for an item matching neighbor_x and y.*/
-          //   if (index_filter(grid, neighbor_row, neighbor_col)) {
-          //     neighborsCount +=
-          //       grid[index_filter(grid, neighbor_row, neighbor_col)].alive;
-          //   }
-          //   /* conditions for the cell dying. */
-          //   if (neighborsCount < 2 || neighborsCount > 3) {
-          //     draft[cell]["alive"] = 0;
-          //     /* conditions for the cell living. */
-          //   } else if (grid[i]["alive"] === 0 && neighborsCount === 3) {
-          //     draft[cell]["alive"] = 1;
-          //   }
+          let item_neighbor = grid.findIndex((item) => {
+            return item["row"] === neighbor_row && item["col"] === neighbor_col;
+          });
+
+          if (
+            neighbor_row >= 0 &&
+            neighbor_row < size &&
+            neighbor_col >= 0 &&
+            neighbor_col < size
+          ) {
+            neighborsCount += grid[item_neighbor]["alive"];
+            console.log(neighborsCount);
+          }
         });
+
+        if (neighborsCount < 2 || neighborsCount > 3) {
+          draft[i]["alive"] = 0;
+        } else if (grid[i]["alive"] === 0 && neighborsCount === 3) {
+          draft[i]["alive"] = 1;
+        }
       });
       setTimeout(simulation, 1000);
     });
-  }, [grid]);
+  }, [grid, size]);
 
   return (
     <>
