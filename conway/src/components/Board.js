@@ -1,6 +1,6 @@
 import React, { useCallback, useRef } from "react";
 import { useStore } from "../state/store";
-import { ACTIONS, index_filter } from "../helpers/helpers";
+import { ACTIONS } from "../helpers/helpers";
 import { neighbors } from "../helpers/neighbors";
 import { Cell } from "./Cell";
 import { ButtonContainer, Container } from "../styles/styled";
@@ -40,21 +40,21 @@ const Board = () => {
     produce(grid, (draft) => {
       grid.forEach((cell, i) => {
         let neighborsCount = 0;
-
         neighbors.forEach(([x, y]) => {
           const neighbor_row = cell.row + x;
           const neighbor_col = cell.col + y;
 
-          let item_neighbor = grid.findIndex((item) => {
-            return item["row"] === neighbor_row && item["col"] === neighbor_col;
-          });
-
           if (
             neighbor_row >= 0 &&
-            neighbor_row < size &&
+            neighbor_row <= size &&
             neighbor_col >= 0 &&
-            neighbor_col < size
+            neighbor_col <= size
           ) {
+            let item_neighbor = grid.findIndex((item) => {
+              return (
+                item["row"] === neighbor_row && item["col"] === neighbor_col
+              );
+            });
             neighborsCount += grid[item_neighbor]["alive"];
           }
         });
@@ -62,7 +62,9 @@ const Board = () => {
         if (neighborsCount < 2 || neighborsCount > 3) {
           draft[i]["alive"] = 0;
         } else if (grid[i]["alive"] === 0 && neighborsCount === 3) {
+          console.log(grid[i]);
           draft[i]["alive"] = 1;
+          console.log(draft[i]);
         }
       });
     });
