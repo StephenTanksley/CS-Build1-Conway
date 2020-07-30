@@ -67,8 +67,6 @@ const Board = () => {
               return;
             }
 
-            // console.log("grid neighbor: ", grid[item_neighbor]["alive"]);
-            // console.log(grid[i]);
             neighborsCount += grid[item_neighbor]["alive"];
           }
         });
