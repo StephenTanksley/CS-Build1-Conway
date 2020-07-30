@@ -5,7 +5,7 @@ export const newCellBoard = (size) => {
   const rows = [];
   for (let i = 0; i < size; i++) {
     for (let j = 0; j < size; j++) {
-      const newCell = new CellObj(i, j, 0, false);
+      const newCell = new CellObj(i, j, 0);
       rows.push(newCell);
     }
   }
@@ -17,20 +17,21 @@ export const randomCellBoard = (size) => {
   let rows = [];
   for (let i = 0; i < size; i++) {
     for (let j = 0; j < size; j++) {
-      const newCell = new CellObj(i, j, Math.random() > 0.85 ? 1 : 0, false);
+      const newCell = new CellObj(i, j, Math.random() > 0.85 ? 1 : 0);
       rows.push(newCell);
     }
   }
   return rows;
 };
 
-// This helper function can check a grid to see if an item exists
+// This helper function can check a grid to see if an item exists.
+// This will break down at greater
 export const index_filter = (grid, i, j) => {
   let cell_indicator = [];
   grid.filter(function (cell) {
     if (cell["row"] === i && cell["col"] === j) {
       cell_indicator.push(cell);
-      console.log(cell_indicator);
+      // console.log(cell_indicator);
     }
     return cell_indicator[0];
   });

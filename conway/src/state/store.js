@@ -16,15 +16,15 @@ const {
 const StoreContext = createContext();
 
 const initialState = {
-  size: 5,
+  size: 50,
   speed: 1000,
   generations: 0,
-  grid: newCellBoard(5),
+  grid: newCellBoard(50),
   // grid: randomCellBoard(15),
   running: false,
 };
 
-const reducer = (state, action, payload) => {
+const reducer = (state, action) => {
   switch (action.type) {
     case RUNNING:
       return {

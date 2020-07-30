@@ -1,6 +1,6 @@
-import React, { useEffect, useCallback, useRef } from "react";
+import React, { useCallback, useRef } from "react";
 import { useStore } from "../state/store";
-import { ACTIONS, index_filter, living_filter } from "../helpers/helpers";
+import { ACTIONS, index_filter } from "../helpers/helpers";
 import { neighbors } from "../helpers/neighbors";
 import { Cell } from "./Cell";
 import { ButtonContainer, Container } from "../styles/styled";
@@ -16,7 +16,7 @@ const Board = () => {
   const {
     RUNNING,
     STOP_RUNNING,
-    NEXT_GEN,
+    // NEXT_GEN,
     RANDOM_BOARD,
     UPDATE_BOARD,
     CLEAR,
@@ -36,32 +36,39 @@ const Board = () => {
       return;
     }
 
-    return produce(grid, (draft) => {
+    // console.log("Simulation is running!");
+    produce(grid, (draft) => {
       grid.forEach((cell, i) => {
-        let neighborsCount = 0;
-        // console.log(`${i}: [${cell.row}, ${cell.col}]`);
+        // console.log(cell);
+        // let neighborsCount = 0;
+        console.log(`${i}: [${cell.row}, ${cell.col}]`);
+
+        // cell["alive"] works.
+        // console.log(`${i} alive? : ${cell["alive"]}`);
+
         neighbors.forEach(([x, y]) => {
           const neighbor_row = cell.row + x;
           const neighbor_col = cell.col + y;
 
-          // search the array for an item matching neighbor_x and y.
-
-          if (index_filter(grid, neighbor_row, neighbor_col)) {
-            neighborsCount +=
-              grid[index_filter(grid, neighbor_row, neighbor_col)].alive;
-          }
-
-          // conditions for killing the cell.
-          if (neighborsCount < 2 || neighborsCount > 3) {
-            draft[i]["alive"] = 0;
-          } else if (grid[i]["alive"] === 0 && neighborsCount === 3) {
-            draft[i]["alive"] = 1;
-          }
+          console.log(`${i}: [${neighbor_row}, ${neighbor_col}]`);
+          index_filter(grid, neighbor_row, neighbor_col);
+          //   /* search the array for an item matching neighbor_x and y.*/
+          //   if (index_filter(grid, neighbor_row, neighbor_col)) {
+          //     neighborsCount +=
+          //       grid[index_filter(grid, neighbor_row, neighbor_col)].alive;
+          //   }
+          //   /* conditions for the cell dying. */
+          //   if (neighborsCount < 2 || neighborsCount > 3) {
+          //     draft[cell]["alive"] = 0;
+          //     /* conditions for the cell living. */
+          //   } else if (grid[i]["alive"] === 0 && neighborsCount === 3) {
+          //     draft[cell]["alive"] = 1;
+          //   }
         });
       });
       setTimeout(simulation, 1000);
     });
-  }, []);
+  }, [grid]);
 
   return (
     <>
@@ -106,7 +113,8 @@ const Board = () => {
         <button
           onClick={() => {
             dispatch({ type: RUNNING });
-            if (runningRef === true) {
+            console.log(running);
+            if (running === true) {
               simulation();
             }
           }}
@@ -118,6 +126,7 @@ const Board = () => {
         <button
           onClick={() => {
             dispatch({ type: CLEAR });
+            dispatch({ type: STOP_RUNNING });
             // console.log("show me the cleared board: ", grid);
           }}
         >

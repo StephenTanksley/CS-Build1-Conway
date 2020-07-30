@@ -15,5 +15,4 @@ export function CellObj(row, col, alive, active) {
   this.row = row;
   this.col = col;
   this.alive = alive;
-  this.active = active;
 }
