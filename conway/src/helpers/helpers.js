@@ -32,8 +32,16 @@ export const index_filter = (grid, i, j) => {
       cell_indicator.push(cell);
       console.log(cell_indicator);
     }
-    return cell.indexOf();
+    return cell_indicator[0];
   });
+};
+
+export const living_filter = (cell, i, j) => {
+  if (cell["row"] === i && cell["col"] === j && cell["alive"] === 1) {
+    return true;
+  } else {
+    return false;
+  }
 };
 
 // This provides us with an approach to grabbing all of the items and having access to props.
