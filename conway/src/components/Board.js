@@ -39,12 +39,7 @@ const Board = () => {
     // console.log("Simulation is running!");
     produce(grid, (draft) => {
       grid.forEach((cell, i) => {
-        console.log(cell);
         let neighborsCount = 0;
-        // console.log(`${i}: [${cell.row}, ${cell.col}]`);
-
-        // cell["alive"] works.
-        // console.log(`${i} alive? : ${cell["alive"]}`);
 
         neighbors.forEach(([x, y]) => {
           const neighbor_row = cell.row + x;
@@ -61,7 +56,6 @@ const Board = () => {
             neighbor_col < size
           ) {
             neighborsCount += grid[item_neighbor]["alive"];
-            console.log(neighborsCount);
           }
         });
 
@@ -71,8 +65,8 @@ const Board = () => {
           draft[i]["alive"] = 1;
         }
       });
-      setTimeout(simulation, 1000);
     });
+    setTimeout(simulation, 1000);
   }, [grid, size]);
 
   return (
